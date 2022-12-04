@@ -51,6 +51,29 @@ app.get('/',  (req, res) => {  // readFiles,
     
  
 })
+app.get('/check/:username/:password',  (req, res) => {  // readFiles,
+
+console.log(req.params.username);
+console.log(req.params.password);
+const name = req.params.username
+const password = req.params.password
+ con.connect((err)=>{
+    if(err) return err;
+    console.log("connected succes");
+const sql = `SELECT * FROM users WHERE username = '${name}' AND password = ${password} `;
+
+    // const usersObj=[]
+    con.query(sql, (err, result)=>{
+        if (err) return console.log(err);
+        const a = result[0] ?  'valid ': 'not valid'
+        console.log(a);
+        res.send(JSON.stringify(a) ) 
+    })
+})
+
+   
+ 
+})
 
 
 
